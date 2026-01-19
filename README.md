@@ -79,109 +79,15 @@ A complete travel booking platform for Georgia tours built with Next.js, TypeScr
    
    Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-## 📁 Project Structure
-
-```
-georgia-travel/
-├── src/
-│   ├── app/                      # Next.js App Router
-│   │   ├── (public)/            # Public routes
-│   │   │   ├── page.tsx         # Home page
-│   │   │   ├── tours/           # Tours listing & details
-│   │   │   ├── about/           # About page
-│   │   │   └── layout.tsx       # Public layout (Header/Footer)
-│   │   ├── admin/               # Admin routes
-│   │   │   ├── page.tsx         # Dashboard
-│   │   │   ├── login/           # Admin login
-│   │   │   ├── tours/           # Tours management
-│   │   │   ├── bookings/        # Bookings management
-│   │   │   ├── import/          # Data import
-│   │   │   └── layout.tsx       # Admin layout (Sidebar)
-│   │   ├── api/                 # API routes
-│   │   │   └── admin/import/    # Import endpoints
-│   │   ├── globals.css          # Global styles
-│   │   └── layout.tsx           # Root layout
-│   ├── components/
-│   │   ├── public/              # Public components
-│   │   │   ├── MobileNav.tsx    # Mobile navigation
-│   │   │   └── BookingForm.tsx  # Booking form
-│   │   └── admin/               # Admin components
-│   │       ├── AdminSidebar.tsx # Admin sidebar
-│   │       ├── TourBuilder.tsx  # Tour creation form
-│   │       └── BookingActions.tsx # Booking actions
-│   ├── lib/
-│   │   ├── supabase/            # Supabase clients
-│   │   │   ├── client.ts        # Browser client
-│   │   │   └── server.ts        # Server client
-│   │   └── import/              # Import utilities
-│   │       ├── config.ts        # Import configurations
-│   │       └── parser.ts        # File parsing logic
-│   ├── types/
-│   │   └── database.ts          # TypeScript types
-│   └── middleware.ts            # Route protection
-├── public/                      # Static assets
-├── .env.example                 # Environment variables template
-├── DATABASE.md                  # Database schema documentation
-├── next.config.ts              # Next.js configuration
-├── tailwind.config.ts          # Tailwind configuration
-└── tsconfig.json               # TypeScript configuration
-```
-
-## 🔑 Key Features Explained
-
-### Tour Management
-- Create tours with dynamic itinerary builder
-- Add multiple days with activities
-- Set pricing, duration, and capacity
-- Mark tours as featured or active/inactive
-- Specify inclusions and exclusions
-
-### Booking System
-- Customers can submit booking requests
-- Real-time price calculation
-- Admin can confirm or cancel bookings
-- Email and phone contact details captured
-- Special requests handling
-
-### Data Import
-- Upload CSV or Excel files
-- Preview data before import
-- Validation with error reporting
-- Support for: countries, regions, cities, hotels, room types, placements
-- Transform and map columns to database fields
-
-### Authentication
-- Middleware protects `/admin` routes
-- Redirects to login if not authenticated
-- Secure session management with Supabase
-
-## 🎨 Design System
-
-- **Primary Color**: Indigo (indigo-600)
-- **Typography**: System fonts
-- **Components**: Clean, modern cards with shadows
-- **Icons**: Lucide React
-- **Responsive**: Mobile-first design
-
 ## 🚀 Deployment
-
-### Build for production
-```bash
-npm run build
-```
-
-### Start production server
-```bash
-npm start
-```
 
 ### Deploy to Vercel (Recommended)
 1. Push your code to GitHub
 2. Import project in Vercel
-3. Add environment variables
+3. Add environment variables:
+   - `NEXT_PUBLIC_SUPABASE_URL`
+   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
 4. Deploy!
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/gigalabichi1/georgia-travel)
 
 ## 📝 Environment Variables
 
@@ -190,17 +96,10 @@ npm start
 | `NEXT_PUBLIC_SUPABASE_URL` | Your Supabase project URL | Yes |
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Your Supabase anonymous key | Yes |
 
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
 ## 📄 License
 
 This project is open source and available under the [MIT License](LICENSE).
 
-## 🙏 Acknowledgments
+---
 
-- Next.js team for the amazing framework
-- Supabase for the backend infrastructure
-- Tailwind CSS for the styling system
-- Lucide for the icon set
+Built with ❤️ for Georgia
