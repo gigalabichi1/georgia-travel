@@ -28,7 +28,7 @@ A complete travel booking platform for Georgia tours built with Next.js, TypeScr
 - **Authentication**: Supabase Auth
 - **Forms**: React Hook Form
 - **Icons**: Lucide React
-- **Data Import**: PapaParser (CSV) + XLSX (Excel)
+- **Data Import**: PapaParser (CSV) + ExcelJS (Excel)
 
 ## 📋 Prerequisites
 

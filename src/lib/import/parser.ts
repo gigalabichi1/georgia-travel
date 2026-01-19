@@ -1,5 +1,5 @@
 import Papa from 'papaparse';
-import * as XLSX from 'xlsx';
+import ExcelJS from 'exceljs';
 import { importConfigs, ImportConfig } from './config';
 
 export interface ParsedData {
@@ -39,43 +39,43 @@ async function parseCSV(file: File): Promise<ParsedData> {
 }
 
 async function parseExcel(file: File): Promise<ParsedData> {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
+  try {
+    const arrayBuffer = await file.arrayBuffer();
+    const workbook = new ExcelJS.Workbook();
+    await workbook.xlsx.load(arrayBuffer);
+    
+    const worksheet = workbook.worksheets[0];
+    if (!worksheet) {
+      throw new Error('Excel file is empty');
+    }
 
-    reader.onload = (e) => {
-      try {
-        const data = e.target?.result;
-        const workbook = XLSX.read(data, { type: 'binary' });
-        const firstSheetName = workbook.SheetNames[0];
-        const worksheet = workbook.Sheets[firstSheetName];
-        const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 }) as any[][];
+    const jsonData: any[][] = [];
+    worksheet.eachRow((row, rowNumber) => {
+      const rowData: any[] = [];
+      row.eachCell({ includeEmpty: true }, (cell, colNumber) => {
+        rowData.push(cell.value);
+      });
+      jsonData.push(rowData);
+    });
 
-        if (jsonData.length === 0) {
-          throw new Error('Excel file is empty');
-        }
+    if (jsonData.length === 0) {
+      throw new Error('Excel file is empty');
+    }
 
-        const headers = jsonData[0] as string[];
-        const rows = jsonData.slice(1).map((row) => {
-          const obj: any = {};
-          headers.forEach((header, index) => {
-            obj[header] = row[index];
-          });
-          return obj;
-        });
+    const headers = jsonData[0] as string[];
+    const rows = jsonData.slice(1).map((row) => {
+      const obj: any = {};
+      headers.forEach((header, index) => {
+        obj[header] = row[index];
+      });
+      return obj;
+    });
 
-        const preview = rows.slice(0, 10);
-        resolve({ headers, rows, preview });
-      } catch (error) {
-        reject(error);
-      }
-    };
-
-    reader.onerror = () => {
-      reject(new Error('Failed to read file'));
-    };
-
-    reader.readAsBinaryString(file);
-  });
+    const preview = rows.slice(0, 10);
+    return { headers, rows, preview };
+  } catch (error) {
+    throw new Error('Failed to parse Excel file');
+  }
 }
 
 export function transformToDbFormat(
