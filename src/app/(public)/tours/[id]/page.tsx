@@ -82,7 +82,7 @@ export default async function TourDetailPage({
                           <p className="text-gray-600">{day.description}</p>
                           {day.activities && day.activities.length > 0 && (
                             <ul className="mt-3 space-y-1">
-                              {day.activities.map((activity, index) => (
+                              {day.activities.map((activity: string, index: number) => (
                                 <li key={index} className="flex items-start gap-2 text-sm text-gray-600">
                                   <MapPin className="w-4 h-4 text-indigo-600 flex-shrink-0 mt-0.5" />
                                   <span>{activity}</span>
